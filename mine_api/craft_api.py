@@ -10,6 +10,21 @@ class MllApi:
     def __init__(self) -> None:
         self.__directory = mll.utils.get_minecraft_directory()
         print(self.__directory)
+    
+    def rename_path(self, minecraft_version, loader_version_id, path, loader_name):
+        os.rename(os.path.join(path, "versions", loader_version_id), os.path.join(path, "versions", f"{minecraft_version} {loader_name}"))
+        os.rename(os.path.join(path, "versions", f"{minecraft_version} {loader_name}", f"{loader_version_id}.jar"), os.path.join(path, "versions", f"{minecraft_version} {loader_name}", f"{minecraft_version} {loader_name}.jar"))
+        os.rename(os.path.join(path, "versions", f"{minecraft_version} {loader_name}", f"{loader_version_id}.json"), os.path.join(path, "versions", f"{minecraft_version} {loader_name}", f"{minecraft_version} {loader_name}.json"))
+        import json
+
+        with open(os.path.join(path, "versions", f"{minecraft_version} {loader_name}", f"{minecraft_version} {loader_name}.json"), "r") as f:
+            data = json.load(f)
+
+        data["id"] = f"{minecraft_version} {loader_name}"
+
+        with open(os.path.join(path, "versions", f"{minecraft_version} {loader_name}", f"{minecraft_version} {loader_name}.json"), "w") as j:
+            json.dump(data, j, indent=2)    
+ 
 
     #Получение директории майнкрафта
     def get_directory(self, dir: str = "minecraft") -> str:
@@ -25,6 +40,10 @@ class MllApi:
                 self.__directory = dir
 
     def get_version(self, optifine: bool = False, forge: bool = False, fabric: bool = False, quilt: bool = False, vanilla: bool = True, all: bool = False, downloads: bool = False) -> Any:
+        print(mll.forge.find_forge_version("1.16.5"))
+        print(mll.fabric)
+        print(mll.forge.find_forge_version("1.16.5"))
+
         if downloads:
             return mll.utils.get_installed_versions(self.get_directory())
         elif vanilla:
@@ -89,6 +108,8 @@ class MllApi:
                 return sorted_items
             except :
                 return
+        
+        
 
     
     def install_version(self, version: str, callback: dict, prefix: str = "") -> None:
@@ -97,10 +118,13 @@ class MllApi:
                 mll.install.install_minecraft_version(versionid=version, minecraft_directory=self.get_directory(), callback=callback)
             case "forge":
                 mll.forge.install_forge_version(versionid=mll.forge.find_forge_version(vanilla_version=version), path=self.get_directory(), callback=callback)
+                self.rename_path(version, mll.forge.find_forge_version(version), self.get_directory(), "Forge")
             case "fabric":
                 mll.fabric.install_fabric(minecraft_version=version, minecraft_directory=self.get_directory(), callback=callback)
+                self.rename_path(version, f"fabric-loader-{mll.fabric.get_latest_loader_version()}-{version}", self.get_directory(), "Fabric")
             case "quilt":
-                mll.quilt.install_quilt(minecraft_version=version, minecraft_directory=self.get_directory(), callback=callback, java="C:\\Program Files\\Java\\jdk-17\\bin\\java.exe")
+                mll.quilt.install_quilt(minecraft_version=version, minecraft_directory=self.get_directory(), callback=callback)
+                self.rename_path(version, f"quilt-loader-{mll.quilt.get_latest_loader_version()}-{version}", self.get_directory(), "Quilt")
             case _:
                 raise IDontKnowVersion(f"I don't know this mod loader")
     # def get_and_set_command(self, version: str, ):

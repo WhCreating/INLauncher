@@ -12,6 +12,9 @@ def settings_menu(page: ft.Page, get_settings_ini: Any, get_jvm_args: Any, set_j
                     text=f"C:\\Program Files\\Java\\{java}"
                 )
             )
+
+        choice_java.value = "C:\\Program Files\\Java\\jdk-17"
+        page.update()
     
     def chg_path(e):
         print(choice_java.value)

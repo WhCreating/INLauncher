@@ -113,7 +113,7 @@ def menu(page: ft.Page):
                         page.update()
 
                     def status_set(e):
-                        status_bar.value = str(e)
+                        status_bar.value = f"{e} {progress_bar.value}%/100%"
                         page.update()
 
                     status_bar = ft.Text(
