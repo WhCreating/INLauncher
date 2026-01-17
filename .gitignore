@@ -1,0 +1,6 @@
+authlib-injector.log
+mine_api/__pycache__
+logs
+gui/__pycache__
+configs/*.json
+configs/*.ini
