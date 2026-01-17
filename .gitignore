@@ -4,3 +4,5 @@ logs
 gui/__pycache__
 configs/*.json
 configs/*.ini
+!configs/*.example.json
+!configs/*.example.ini

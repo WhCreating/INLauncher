@@ -16,7 +16,7 @@ class Accounts_Card():
 
         
             with open(user_profiles, "w", encoding="utf-8") as jssw:
-                json.dump(jss, jssw, ensure_ascii=False)
+                json.dump(jss, jssw, ensure_ascii=False, indent=4)
 
             osnv.content = accounts_pg(page, user_profiles)
             page.update()
