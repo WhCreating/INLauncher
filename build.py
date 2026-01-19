@@ -23,8 +23,8 @@ def json_import() -> None:
     shutil.copy2(os.path.join(inlauncher_source, "configs", "userProfile.example.json"), os.path.join(inlauncher_source, "configs", "userProfile.json"))
 
 def move_exe() -> None:
-    shutil.move(os.path.join(inlauncher_source, "_internal"), inlauncher_source)
-    shutil.move(os.path.join(inlauncher_source, "INLauncher.exe"), inlauncher_source)
+    shutil.move(os.path.join("dist", "INLauncher", "_internal"), inlauncher_source)
+    shutil.move(os.path.join("dist", "INLauncher", "INLauncher.exe"), inlauncher_source)
 
 def install_req() -> None:
     os.system(f"pip install -r {os.path.join(inlauncher_source, "requirements.txt")}")
