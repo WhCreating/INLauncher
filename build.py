@@ -20,7 +20,7 @@ def json_import() -> None:
     shutil.copy2(os.path.join(inlauncher_source, "configs", "themes.example.json"), os.path.join(inlauncher_source, "configs", "themes.json"))
 
     #userProfiles
-    shutil.copy2(os.path.join(inlauncher_source, "configs", "userProfile.example.json"), os.path.join(inlauncher_source, "configs", "userProfile.json"))
+    shutil.copy2(os.path.join(inlauncher_source, "configs", "usersProfile.example.json"), os.path.join(inlauncher_source, "configs", "usersProfile.json"))
 
 def move_exe() -> None:
     shutil.move(os.path.join("dist", "INLauncher", "_internal"), inlauncher_source)
