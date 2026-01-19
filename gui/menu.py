@@ -3,6 +3,7 @@ from mine_api.craft_api import MllApi
 import json
 import os
 import configparser
+import subprocess
 
 from gui.pages.home_bar import home_bar
 from gui.pages.monitoring import monitoring
@@ -246,7 +247,9 @@ def menu(page: ft.Page):
                 page.update()
 
     def papka(e):
-        os.system(f"explorer.exe {ma.get_directory()}")
+        subprocess.run(f"explorer.exe {ma.get_directory()}")
+
+        #os.system(f"explorer.exe {ma.get_directory()}")
     
     def filt(e):
         versions.options = []
