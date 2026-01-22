@@ -1,5 +1,6 @@
 authlib-injector.log
 mine_api/__pycache__
+gui/pages/__pycache__
 logs
 gui/__pycache__
 configs/*.json
