@@ -22,7 +22,7 @@ def update():
         in_mem = io.BytesIO(response.content)
 
         try :
-            with zipfile.ZipFile(in_mem, 'r') as file:
+            with zipfile.ZipFile(in_mem, 'wb') as file:
                 for i in file.namelist():
                     if i.startswith("INLauncher-main"):
                         file.extract(i, os.path.join("."))
