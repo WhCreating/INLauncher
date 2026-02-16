@@ -25,7 +25,7 @@ def update():
             with zipfile.ZipFile(in_mem, 'r') as file:
                 for i in file.namelist():
                     if i.startswith("INLauncher-main"):
-                        file.extract(i, os.path.join("./doness"))
+                        file.extract(i, os.path.join("."))
                         print(file.namelist())
         except Exception as e:
             print(f"Что-то не так: {e}")
