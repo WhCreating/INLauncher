@@ -14,3 +14,7 @@ dist
 INLauncher.exe
 _internal
 done_build
+INLauncher-main
+doness
+__pycache__
+
