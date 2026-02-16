@@ -1,10 +1,13 @@
 from github import Github
 import json
 import os
+import requests
+import io
+import zipfile
 
 with open(os.path.join("info.json")) as f:
     dct = json.load(f)
-    version_launcher = dct["version"]
+    version_launcher: str = dct["version"]
 
 def update():
 
@@ -13,7 +16,20 @@ def update():
     repo = g.get_repo("WhCreating/INLauncher")
     latest = repo.get_latest_release()
 
-    print(latest.name)
+    if latest.name.strip() != version_launcher.strip():
+        for i in list(latest.get_assets()):
+            if i.name == "patch.zip":
+                response = requests.get(i.browser_download_url)
+                
+                in_mem = io.BytesIO(response.content)
+
+                try :
+                    with zipfile.ZipFile(in_mem, 'r') as file:
+                        file.extractall(os.path.join("."))
+                except Exception as e:
+                    print(f"Что-то не так: {e}")
+
+                
 
 if __name__ == "__main__":
     update()
