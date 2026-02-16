@@ -28,8 +28,6 @@ def update():
                         file.extractall(os.path.join("."))
                 except Exception as e:
                     print(f"Что-то не так: {e}")
-    else :
-        print("обновление пропущено")
 
                 
 

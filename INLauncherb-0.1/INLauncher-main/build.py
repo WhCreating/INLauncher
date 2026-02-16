@@ -10,7 +10,7 @@ with open(os.path.join("info.json")) as f:
     version_launcher = dct["version"]
 
 source = "https://github.com/WhCreating/INLauncher/archive/refs/heads/main.zip"
-install_path = os.path.join(f"INLauncher-{version_launcher}")
+install_path = os.path.join(f"INLauncher{version_launcher}")
 inlauncher_source = os.path.join(install_path, "INLauncher-main")
 
 def json_import() -> None:
