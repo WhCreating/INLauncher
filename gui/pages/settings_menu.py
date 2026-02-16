@@ -9,15 +9,58 @@ def settings_menu(page: ft.Page, get_settings_ini: Any, get_jvm_args: Any, set_j
         for java in get_java():
             choice_java.options.append(
                 ft.DropdownOption(
-                    text=f"C:\\Program Files\\Java\\{java}"
+                    text=f"C:\\Program Files\\Java\\{java}\\bin\\javaw.exe",
+                    content=ft.Text(
+                        value=java
+                    )
                 )
             )
 
-        choice_java.value = "C:\\Program Files\\Java\\jdk-17"
+        choice_java.value = path_java_ui.value
         page.update()
     
     def chg_path(e):
         print(choice_java.value)
+
+    def folder_check(e: ft.FilePickerResultEvent):
+        if e.path:
+            choice_java.options.append(
+                ft.DropdownOption(
+                    text=e.path
+                )
+            )
+        else :
+            pass
+
+        page.update()
+    
+    def edit_path_func(e):
+        path_java_ui.visible = True
+        choice_java.visible = False
+        edit_path.visible = False
+        apply_path.visible = True
+
+        page.update()
+    
+    def apply_path_func(e):
+        if path_java_ui.value in choice_java.options:
+            choice_java.value = path_java_ui.value
+        else :
+            choice_java.options.append(
+                ft.DropdownOption(
+                    text=path_java_ui.value
+                )
+            )
+
+            choice_java.value = path_java_ui.value
+
+        path_java_ui.visible = False
+        choice_java.visible = True
+        edit_path.visible = True
+        apply_path.visible = False
+
+        page.update()
+
 
     # Инциализация конфига
     settings_ini = configparser.ConfigParser()
@@ -44,7 +87,7 @@ def settings_menu(page: ft.Page, get_settings_ini: Any, get_jvm_args: Any, set_j
     # mainecraft
     ram_ui = ft.TextField(
         value=settings_ini.get("minecraft", "ram"), 
-        expand=False, 
+        expand=True, 
         width=40,
         cursor_color="#E2E2E2",
         focused_border_color="#E2E2E2",
@@ -53,7 +96,7 @@ def settings_menu(page: ft.Page, get_settings_ini: Any, get_jvm_args: Any, set_j
     )
     path_game_ui = ft.TextField(
         value=settings_ini.get("minecraft", "path_game"), 
-        expand=False,
+        expand=True,
         cursor_color="#E2E2E2",
         focused_border_color="#E2E2E2",
         selection_color="#E2E2E2",
@@ -61,7 +104,7 @@ def settings_menu(page: ft.Page, get_settings_ini: Any, get_jvm_args: Any, set_j
     )
     jvm_ui = ft.TextField(
         value=get_jvm_args(), 
-        expand=False,
+        expand=True,
         cursor_color="#E2E2E2",
         focused_border_color="#E2E2E2",
         selection_color="#E2E2E2",
@@ -73,23 +116,53 @@ def settings_menu(page: ft.Page, get_settings_ini: Any, get_jvm_args: Any, set_j
         cursor_color="#E2E2E2",
         focused_border_color="#E2E2E2",
         selection_color="#E2E2E2",
-        label_style=ft.TextStyle(color="#E2E2E2")
+        label_style=ft.TextStyle(color="#E2E2E2"),
+        visible=False,
+        expand=True
     )
     choice_java = ft.Dropdown(
-        on_change=chg_path
+        on_change=chg_path,
+        expand=True
     )
     update_java = ft.IconButton(
         icon=ft.Icons.REPLAY_ROUNDED,
-        on_click=update_choice_java
+        on_click=update_choice_java,
+        icon_color="#E2E2E2"
     )
+
+    edit_path = ft.IconButton(
+        icon=ft.Icons.EDIT_ROUNDED,
+        on_click=edit_path_func,
+        icon_color="#E2E2E2"
+    )
+
+    apply_path = ft.IconButton(
+        icon=ft.Icons.CHECK_ROUNDED,
+        icon_color="#E2E2E2",
+        visible=False,
+        on_click=apply_path_func
+    )
+
+    folder = ft.FilePicker(
+        on_result=folder_check
+    )
+
+    folder_java = ft.IconButton(
+        icon=ft.Icons.FOLDER_ROUNDED,
+        on_click=lambda e: folder.pick_files(allow_multiple=False),
+        icon_color="#E2E2E2"
+    )
+
     update_choice_java()
 
+    # Other
     authlib_ui = ft.TextField(
         value=settings_ini.get("minecraft", "authlib"),
         cursor_color="#E2E2E2",
         focused_border_color="#E2E2E2",
         selection_color="#E2E2E2",
-        label_style=ft.TextStyle(color="#E2E2E2")
+        label_style=ft.TextStyle(color="#E2E2E2"),
+        expand=True
     )
 
     def apply_settings(e):
@@ -186,24 +259,28 @@ def settings_menu(page: ft.Page, get_settings_ini: Any, get_jvm_args: Any, set_j
                         controls=[
                             ft.Text(value="JVM-Args: "),
                             jvm_ui
-                        ]
+                        ],
                     ),
                     ft.Row(
                         controls=[
                             ft.Text(value="Path_java: "),
                             path_java_ui,
                             choice_java,
-                            update_java
-                        ]
+                            update_java,
+                            edit_path,
+                            apply_path,
+                            folder_java
+                        ],
                     ),
                     ft.Row(
                         controls=[
                             ft.Text(value="Authlib: "),
                             authlib_ui
-                        ]
+                        ],
                     )
                 ],
-                wrap=True
+                wrap=True,
+                width=500
             ),
             
         ]  

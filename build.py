@@ -5,8 +5,12 @@ import zipfile
 import shutil
 import json
 
+with open(os.path.join("info.json")) as f:
+    dct = json.load(f)
+    version_launcher = dct["version"]
+
 source = "https://github.com/WhCreating/INLauncher/archive/refs/heads/main.zip"
-install_path = os.path.join("done_build")
+install_path = os.path.join(f"INLauncher{version_launcher}")
 inlauncher_source = os.path.join(install_path, "INLauncher-main")
 
 def json_import() -> None:
@@ -29,7 +33,7 @@ def move_exe() -> None:
 def install_req() -> None:
     os.system(f"pip install -r {os.path.join(inlauncher_source, "requirements.txt")}")
 
-def build() -> None:
+def build(is_patch: bool = False) -> None:
     os.makedirs(install_path, exist_ok=True)
 
     response = requests.get(source, stream=True)
@@ -43,10 +47,17 @@ def build() -> None:
     install_req()
     os.system(f"flet pack -n INLauncher -i {os.path.join(inlauncher_source, "icon.ico")} -D {os.path.join(inlauncher_source, "main.py")}")
     move_exe()
-    json_import()
+
+    if is_patch is False:
+        json_import()
 
     print("Билдинг готов!")
 
     
 if __name__ == "__main__":
-    build()
+    is_patch_input = input("Патч?(y/N): ")
+
+    if is_patch_input in ["y", "Y", "yes"]:
+        build(True)
+    else :
+        build(False)
