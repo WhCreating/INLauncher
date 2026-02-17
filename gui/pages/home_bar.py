@@ -42,7 +42,8 @@ def home_bar(page: ft.Page, osnv: ft.Container):
 
     sn = ft.Row(
         controls=[
-            Social(src=os.path.join("gui", "images", "telegram.png"), url="https://t.me/inlauncher", size=50)
+            Social(src=os.path.join("gui", "images", "telegram.png"), url="https://t.me/inlauncher", size=50),
+            Social(src=os.path.join("gui", "images", "github.png"), url="https://github.com/WhCreating/INLauncher", size=50)
         ]
     )
 

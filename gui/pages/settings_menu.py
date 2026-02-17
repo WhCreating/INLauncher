@@ -173,7 +173,7 @@ def settings_menu(page: ft.Page, get_settings_ini: Any, get_jvm_args: Any, set_j
             settings_ini.set("minecraft", "ram", ram_ui.value)
             settings_ini.set("minecraft", "path_game", path_game_ui.value)
             settings_ini.set("minecraft", "path_java", path_java_ui.value)
-            ma.set_directory(dir=settings_ini.get("minecraft", "path_game"))
+            ma.set_directory(dir=settings_ini.get("minecraft", "path_game"), is_none=True)
 
             set_jvm_args(jvm_ui.value)
             options["executablePath"] = path_java_ui.value
@@ -183,7 +183,8 @@ def settings_menu(page: ft.Page, get_settings_ini: Any, get_jvm_args: Any, set_j
 
             notification.notify(title="INLauncher", message="Настройки были успешно применены", app_name="INLauncher", app_icon="icon.ico")
         except Exception as e:
-            notification.notify(title="INLauncher", message="Неудалось сохранить изменения", app_name="INLauncher", app_icon="icon.ico")
+            notification.notify(title="INLauncher", message=f"Неудалось сохранить изменения, ошибка: {e}", app_name="INLauncher", app_icon="icon.ico")
+            print(e)
 
 
     column_settings = ft.Column(
