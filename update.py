@@ -17,18 +17,20 @@ def update():
     latest = repo.get_latest_release()
 
     if latest.name.strip() != version_launcher.strip():
-        response = requests.get("https://github.com/WhCreating/INLauncher/archive/refs/heads/main.zip")
-        
-        in_mem = io.BytesIO(response.content)
 
-        try :
-            with zipfile.ZipFile(in_mem, 'wb') as file:
-                for i in file.namelist():
-                    if i.startswith("INLauncher-main"):
-                        file.extract(i, os.path.join("."))
-                        print(file.namelist())
-        except Exception as e:
-            print(f"Что-то не так: {e}")
+        for i in latest.assets:
+            if i.name == "patch.zip":
+
+                response = requests.get(i.browser_download_url)
+                
+                in_mem = io.BytesIO(response.content)
+                
+                try :
+                    with zipfile.ZipFile(in_mem, 'r') as file:
+                        file.extractall(".")
+                except Exception as e:
+                    print(f"Что-то не так: {e}")
+                
     else :
         print("обновление пропущено")
 
