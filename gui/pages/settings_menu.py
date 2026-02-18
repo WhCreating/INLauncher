@@ -20,6 +20,8 @@ def settings_menu(page: ft.Page, get_settings_ini: Any, get_jvm_args: Any, set_j
         page.update()
     
     def chg_path(e):
+        path_java_ui.value = choice_java.value
+        page.update()
         print(choice_java.value)
 
     def folder_check(e: ft.FilePickerResultEvent):
@@ -39,6 +41,7 @@ def settings_menu(page: ft.Page, get_settings_ini: Any, get_jvm_args: Any, set_j
         choice_java.visible = False
         edit_path.visible = False
         apply_path.visible = True
+
 
         page.update()
     
@@ -167,6 +170,8 @@ def settings_menu(page: ft.Page, get_settings_ini: Any, get_jvm_args: Any, set_j
 
     def apply_settings(e):
         try :
+
+            print(path_java_ui.value)
             settings_ini.set("launcher", "width", width_ui.value)
             settings_ini.set("launcher", "height", height_ui.value)
             settings_ini.set("launcher", "language", ru_ui)
