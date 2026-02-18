@@ -45,7 +45,7 @@ def build(is_patch: bool = False) -> None:
 
 
     install_req()
-    os.system(f"flet pack -n INLauncher -i {os.path.join(inlauncher_source, "icon.ico")} -D {os.path.join(inlauncher_source, "main.py")}")
+    os.system(f"flet pack -n INLauncher -i {os.path.join(inlauncher_source, "icon.ico")} -D --uac-admin {os.path.join(inlauncher_source, "main.py")}")
     move_exe()
 
     if is_patch is False:
