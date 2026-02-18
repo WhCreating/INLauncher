@@ -15,9 +15,9 @@ from gui.pages.settings_menu import settings_menu
 # Переменные
 abspath = os.path.abspath(__file__)
 
-launcher_options = os.path.join(abspath, "..", "..", "configs", "launcher_options.ini")
-jvm_args_path = os.path.join(abspath, "..", "..", "configs", "jvmArgs.json")
-user_profiles = os.path.join(abspath, "..", "..", "configs", "usersProfile.json")
+launcher_options = os.path.join("configs", "launcher_options.ini")
+jvm_args_path = os.path.join("configs", "jvmArgs.json")
+user_profiles = os.path.join("configs", "usersProfile.json")
 
 print(launcher_options)
 print(jvm_args_path)
