@@ -5,10 +5,12 @@
 
 Используемые библиотеки:
 - [Minecraft launcher Lib](https://pypi.org/project/minecraft-launcher-lib/)
-- [flet(0.23.8)](flet.dev)  
+- [flet(0.23.8)](flet.dev)
+
 Переходник:
 - [Сайт](https://whcreating.github.io/INLSites/)
-- [Телеграм проекта](https://t.me/inlauncher)  
+- [Телеграм проекта](https://t.me/inlauncher)
+
 Скрины:
 <img width="1909" height="1004" alt="изображение" src="https://github.com/user-attachments/assets/b4d8c59c-dc3a-4d85-b039-15be27138fcd" />
 
