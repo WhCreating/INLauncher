@@ -36,7 +36,7 @@ def update(page: ft.Page):
 
                 for i in latest.assets:
                     if i.name == "patch.zip":
-                        loading(page, 100, latest)
+                        loading(page, 100, latest.name.strip())
 
                         response = requests.get(i.browser_download_url)
                         
