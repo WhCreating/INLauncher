@@ -20,7 +20,7 @@ def loading(page: ft.Page, precent: int, update_latest: str):
                     ft.Row([ft.Text(value=f"Update {update_latest}")], alignment=ft.MainAxisAlignment.CENTER)
                 ]
             ),
-            alignment=ft.MainAxisAlignment.CENTER
+            alignment=ft.alignment.center
         )
     )
 

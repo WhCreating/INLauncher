@@ -5,6 +5,7 @@ from update import update
 
 def main(page: ft.Page):
     update(page)
+    page.controls.clear()
 
     page.title = "INLauncher"
     page.bgcolor = "#1E1E1E"
