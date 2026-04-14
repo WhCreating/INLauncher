@@ -4,12 +4,27 @@ import os
 import requests
 import io
 import zipfile
+import flet as ft
 
 with open(os.path.join("info.json")) as f:
     dct = json.load(f)
     version_launcher: str = dct["version"]
 
-def update():
+def loading(page: ft.Page, precent: int, update_latest: str):
+    page.controls.clear()
+
+    page.add(
+        ft.Container(
+            content=ft.Column(
+                controls=[
+                    ft.Row([ft.Text(value=f"Update {update_latest} {precent}%")]),
+                    ft.ProgressBar(value=precent, width=300)
+                ]
+            )
+        )
+    )
+
+def update(page: ft.Page):
     if dct["debug"] == "false":
         try :
             g = Github()
@@ -25,6 +40,7 @@ def update():
                         response = requests.get(i.browser_download_url)
                         
                         in_mem = io.BytesIO(response.content)
+                        print(in_mem.getvalue())
                         
                         try :
                             with zipfile.ZipFile(in_mem, 'r') as file:

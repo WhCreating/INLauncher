@@ -4,7 +4,7 @@ import sys
 from update import update
 
 def main(page: ft.Page):
-    update()
+    update(page)
 
     page.title = "INLauncher"
     page.bgcolor = "#1E1E1E"
