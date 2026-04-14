@@ -36,11 +36,11 @@ def update(page: ft.Page):
 
                 for i in latest.assets:
                     if i.name == "patch.zip":
+                        loading(page, 100, latest)
 
                         response = requests.get(i.browser_download_url)
                         
                         in_mem = io.BytesIO(response.content)
-                        print(in_mem.getvalue())
                         
                         try :
                             with zipfile.ZipFile(in_mem, 'r') as file:
