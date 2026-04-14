@@ -17,10 +17,10 @@ def loading(page: ft.Page, precent: int, update_latest: str):
         ft.Container(
             content=ft.Column(
                 controls=[
-                    ft.Row([ft.Text(value=f"Update {update_latest} {precent}%")]),
-                    ft.ProgressBar(value=precent, width=300)
+                    ft.Row([ft.Text(value=f"Update {update_latest}")], alignment=ft.MainAxisAlignment.CENTER)
                 ]
-            )
+            ),
+            alignment=ft.MainAxisAlignment.CENTER
         )
     )
 
